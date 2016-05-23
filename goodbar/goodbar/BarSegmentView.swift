@@ -23,23 +23,29 @@ class BarSegmentView : NSView, BarUpdatable {
         super.init(frame: CGRectZero)
         self.translatesAutoresizingMaskIntoConstraints = false
         
-        var constraints = [NSLayoutConstraint]()
-        var anchorForLeftAlignment = self.leftAnchor
-        
         for view in barItemViews {
             self.addSubview(view)
-            
-            constraints.append(view.leftAnchor.constraintEqualToAnchor(anchorForLeftAlignment))
-            anchorForLeftAlignment = view.rightAnchor
         }
-        
-        NSLayoutConstraint.activateConstraints(constraints)
+    }
+    
+    override func layout() {
+        super.layout()
+        var runningX: CGFloat = 0
+        for view in barItemViews {
+            let fittingSize = view.fittingSize
+            let viewFrame = CGRectMake(runningX, 0, fittingSize.width, self.bounds.size.height)
+            view.frame = viewFrame
+            
+            runningX = view.bounds.size.width
+        }
     }
     
     func updateBarContents() {
         for view in barItemViews {
             view.updateBarContents()
         }
+        
+        self.needsLayout = true
     }
     
     required init?(coder: NSCoder) {

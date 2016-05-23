@@ -28,6 +28,10 @@ class BarItemView : NSView, BarUpdatable {
         label.frame = self.bounds
     }
     
+    override var fittingSize: NSSize {
+        return label.fittingSize
+    }
+    
     func updateBarContents() {
         label.stringValue = self.barItem.currentOutput()
     }
