@@ -10,18 +10,15 @@ import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-
     @IBOutlet weak var window: NSWindow!
-
-
-    func applicationDidFinishLaunching(aNotification: NSNotification) {
-        // Insert code here to initialize your application
+    let configFileLoader = ConfigurationFileLoader()
+    
+    func applicationDidFinishLaunching(notification: NSNotification) {
+        window.level = 1000000000
+        window.collectionBehavior = [.Default, .Transient]
+        
+        configFileLoader.loadConfigurationFile { (leftSegment, centerSegment, rightSegment) in
+            //
+        }
     }
-
-    func applicationWillTerminate(aNotification: NSNotification) {
-        // Insert code here to tear down your application
-    }
-
-
 }
-
