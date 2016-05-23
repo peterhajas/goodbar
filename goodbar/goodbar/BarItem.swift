@@ -28,17 +28,25 @@ struct BarItem {
         let task = NSTask()
         let pipe = NSPipe()
         
-        task.launchPath = (("~" as NSString).stringByExpandingTildeInPath) as String
+        let command = ((self.script as NSString).stringByExpandingTildeInPath) as String
+        
+        task.launchPath = "/bin/bash"
+        task.arguments = ["-c", command]
         task.standardOutput = pipe
         
         task.launch()
         
-        task.waitUntilExit()
+        sleep(1)
+        task.terminate()
+        
+        // Waiting seems busted right now...
+//        task.waitUntilExit()
         
         let handle = pipe.fileHandleForReading
         let data = handle.readDataToEndOfFile()
         
         if let stringFromData = NSString(data: data, encoding: NSUTF8StringEncoding) {
+            print(stringFromData)
             return stringFromData as String
         }
         else {
