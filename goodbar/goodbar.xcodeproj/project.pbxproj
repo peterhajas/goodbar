@@ -57,14 +57,30 @@
 			isa = PBXGroup;
 			children = (
 				4F5B959A1CF2BD4C00AC49BF /* AppDelegate.swift */,
-				4F5B95A71CF2C15000AC49BF /* BarItem.swift */,
-				4F5B95A91CF2C32F00AC49BF /* BarSegment.swift */,
-				4F5B95AB1CF2C3F200AC49BF /* ConfigurationFileLoader.swift */,
+				4F5B95AD1CF2CC4A00AC49BF /* Model */,
+				4F5B95AE1CF2CC5200AC49BF /* Config Files */,
 				4F5B959C1CF2BD4D00AC49BF /* Assets.xcassets */,
 				4F5B959E1CF2BD4D00AC49BF /* MainMenu.xib */,
 				4F5B95A11CF2BD4D00AC49BF /* Info.plist */,
 			);
 			path = goodbar;
+			sourceTree = "<group>";
+		};
+		4F5B95AD1CF2CC4A00AC49BF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4F5B95A71CF2C15000AC49BF /* BarItem.swift */,
+				4F5B95A91CF2C32F00AC49BF /* BarSegment.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		4F5B95AE1CF2CC5200AC49BF /* Config Files */ = {
+			isa = PBXGroup;
+			children = (
+				4F5B95AB1CF2C3F200AC49BF /* ConfigurationFileLoader.swift */,
+			);
+			name = "Config Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
