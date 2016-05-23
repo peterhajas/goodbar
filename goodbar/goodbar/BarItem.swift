@@ -23,4 +23,26 @@ struct BarItem {
         
         self.init(script: script, color: color)
     }
+    
+    func currentOutput() -> String {
+        let task = NSTask()
+        let pipe = NSPipe()
+        
+        task.launchPath = (("~" as NSString).stringByExpandingTildeInPath) as String
+        task.standardOutput = pipe
+        
+        task.launch()
+        
+        task.waitUntilExit()
+        
+        let handle = pipe.fileHandleForReading
+        let data = handle.readDataToEndOfFile()
+        
+        if let stringFromData = NSString(data: data, encoding: NSUTF8StringEncoding) {
+            return stringFromData as String
+        }
+        else {
+            return ""
+        }
+    }
 }

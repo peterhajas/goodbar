@@ -12,13 +12,14 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var window: NSWindow!
     let configFileLoader = ConfigurationFileLoader()
+    var barView: BarView? = nil
     
     func applicationDidFinishLaunching(notification: NSNotification) {
-        window.level = 1000000000
-        window.collectionBehavior = [.Default, .Transient]
-        
         configFileLoader.loadConfigurationFile { (leftSegment, centerSegment, rightSegment) in
-            //
+            self.barView = BarView(leftSegment: leftSegment, centerSegment: centerSegment, rightSegment: rightSegment)
+            self.window.contentView = self.barView
+            
+            self.barView?.updateBarContents()
         }
     }
 }

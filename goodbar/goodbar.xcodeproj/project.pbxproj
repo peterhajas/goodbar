@@ -13,6 +13,12 @@
 		4F5B95A81CF2C15000AC49BF /* BarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5B95A71CF2C15000AC49BF /* BarItem.swift */; };
 		4F5B95AA1CF2C32F00AC49BF /* BarSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5B95A91CF2C32F00AC49BF /* BarSegment.swift */; };
 		4F5B95AC1CF2C3F200AC49BF /* ConfigurationFileLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5B95AB1CF2C3F200AC49BF /* ConfigurationFileLoader.swift */; };
+		4F5B95B01CF2CC6800AC49BF /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5B95AF1CF2CC6800AC49BF /* BarView.swift */; };
+		4F5B95B21CF2CD1800AC49BF /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5B95B11CF2CD1800AC49BF /* Window.swift */; };
+		4F5B95B51CF2D43D00AC49BF /* BarSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5B95B41CF2D43D00AC49BF /* BarSegmentView.swift */; };
+		4F5B95B71CF2D48B00AC49BF /* BarItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5B95B61CF2D48B00AC49BF /* BarItemView.swift */; };
+		4FE6880E1CF2D7F3008C7062 /* BarGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE6880D1CF2D7F3008C7062 /* BarGeometry.swift */; };
+		4FE688101CF2DD0F008C7062 /* BarUpdatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE6880F1CF2DD0F008C7062 /* BarUpdatable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +30,12 @@
 		4F5B95A71CF2C15000AC49BF /* BarItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarItem.swift; sourceTree = "<group>"; };
 		4F5B95A91CF2C32F00AC49BF /* BarSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarSegment.swift; sourceTree = "<group>"; };
 		4F5B95AB1CF2C3F200AC49BF /* ConfigurationFileLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationFileLoader.swift; sourceTree = "<group>"; };
+		4F5B95AF1CF2CC6800AC49BF /* BarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
+		4F5B95B11CF2CD1800AC49BF /* Window.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
+		4F5B95B41CF2D43D00AC49BF /* BarSegmentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarSegmentView.swift; sourceTree = "<group>"; };
+		4F5B95B61CF2D48B00AC49BF /* BarItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarItemView.swift; sourceTree = "<group>"; };
+		4FE6880D1CF2D7F3008C7062 /* BarGeometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarGeometry.swift; sourceTree = "<group>"; };
+		4FE6880F1CF2DD0F008C7062 /* BarUpdatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarUpdatable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				4F5B959A1CF2BD4C00AC49BF /* AppDelegate.swift */,
+				4F5B95B31CF2CD1C00AC49BF /* UI */,
 				4F5B95AD1CF2CC4A00AC49BF /* Model */,
 				4F5B95AE1CF2CC5200AC49BF /* Config Files */,
 				4F5B959C1CF2BD4D00AC49BF /* Assets.xcassets */,
@@ -69,8 +82,8 @@
 		4F5B95AD1CF2CC4A00AC49BF /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				4F5B95A71CF2C15000AC49BF /* BarItem.swift */,
 				4F5B95A91CF2C32F00AC49BF /* BarSegment.swift */,
+				4F5B95A71CF2C15000AC49BF /* BarItem.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -81,6 +94,19 @@
 				4F5B95AB1CF2C3F200AC49BF /* ConfigurationFileLoader.swift */,
 			);
 			name = "Config Files";
+			sourceTree = "<group>";
+		};
+		4F5B95B31CF2CD1C00AC49BF /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				4F5B95B11CF2CD1800AC49BF /* Window.swift */,
+				4FE6880F1CF2DD0F008C7062 /* BarUpdatable.swift */,
+				4F5B95AF1CF2CC6800AC49BF /* BarView.swift */,
+				4F5B95B41CF2D43D00AC49BF /* BarSegmentView.swift */,
+				4F5B95B61CF2D48B00AC49BF /* BarItemView.swift */,
+				4FE6880D1CF2D7F3008C7062 /* BarGeometry.swift */,
+			);
+			name = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,9 +180,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F5B95A81CF2C15000AC49BF /* BarItem.swift in Sources */,
+				4F5B95B51CF2D43D00AC49BF /* BarSegmentView.swift in Sources */,
 				4F5B959B1CF2BD4C00AC49BF /* AppDelegate.swift in Sources */,
+				4F5B95B71CF2D48B00AC49BF /* BarItemView.swift in Sources */,
 				4F5B95AA1CF2C32F00AC49BF /* BarSegment.swift in Sources */,
 				4F5B95AC1CF2C3F200AC49BF /* ConfigurationFileLoader.swift in Sources */,
+				4F5B95B01CF2CC6800AC49BF /* BarView.swift in Sources */,
+				4FE6880E1CF2D7F3008C7062 /* BarGeometry.swift in Sources */,
+				4FE688101CF2DD0F008C7062 /* BarUpdatable.swift in Sources */,
+				4F5B95B21CF2CD1800AC49BF /* Window.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +331,7 @@
 				4F5B95A61CF2BD4D00AC49BF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
