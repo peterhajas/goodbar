@@ -36,25 +36,24 @@ class BarView : NSView, BarUpdatable {
         self.layer?.borderWidth = 3
         self.layer?.backgroundColor = NSColor.blueColor().CGColor
         
-        var constraints = [NSLayoutConstraint]()
-        
         let views = [leftSegmentView, centerSegmentView, rightSegmentView]
-        
-        constraints.append(centerSegmentView.widthAnchor.constraintGreaterThanOrEqualToAnchor(leftSegmentView.widthAnchor))
-        constraints.append(rightSegmentView.widthAnchor.constraintGreaterThanOrEqualToAnchor(leftSegmentView.widthAnchor))
-        
-        constraints.append(leftSegmentView.leftAnchor.constraintEqualToAnchor(self.leftAnchor))
-        constraints.append(centerSegmentView.leftAnchor.constraintEqualToAnchor(leftSegmentView.rightAnchor))
-        constraints.append(rightSegmentView.leftAnchor.constraintEqualToAnchor(rightSegmentView.rightAnchor))
-        constraints.append(rightSegmentView.rightAnchor.constraintEqualToAnchor(self.rightAnchor))
         
         for view in views {
             self.addSubview(view)
-            constraints.append(view.heightAnchor.constraintEqualToAnchor(self.heightAnchor))
-            constraints.append(view.centerYAnchor.constraintEqualToAnchor(self.centerYAnchor))
         }
+    }
+    
+    override func layout() {
+        super.layout()
+        let bounds = self.bounds
+        var segmentRect = bounds
+        segmentRect.size.width *= CGFloat(1.0/3.0)
         
-        NSLayoutConstraint.activateConstraints(constraints)
+        leftSegmentView.frame = segmentRect
+        segmentRect.origin.x += segmentRect.size.width
+        centerSegmentView.frame = segmentRect
+        segmentRect.origin.x += segmentRect.size.width
+        rightSegmentView.frame = segmentRect
     }
     
     func updateBarContents() {
