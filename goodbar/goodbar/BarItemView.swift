@@ -43,10 +43,10 @@ class BarItemView : NSView, BarUpdatable {
     
     func updateBarContents() {
         let output = self.barItem.currentOutput()
-        let font = NSFont(name: "Menlo", size: 12)
+        let font = NSFont(name: "Menlo", size: 12)!
         let attributes: [String : AnyObject]
-        attributes = {[NSForegroundColorAttributeName : self.barItem.color],
-                      [NSFontAttributeName : font]}
+        attributes = [NSForegroundColorAttributeName : self.barItem.color,
+                      NSFontAttributeName : font]
         let attributedString = NSAttributedString(string: output, attributes: attributes)
         label.attributedStringValue = attributedString
     }
