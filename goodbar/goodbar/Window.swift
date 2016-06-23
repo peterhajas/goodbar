@@ -29,7 +29,11 @@ class Window : NSWindow {
     }
     
     private func commonInit() {
-        self.level = 1000000000
+        let cgLevelKey = CGWindowLevelKey.DesktopWindowLevelKey
+        let cgLevel = CGWindowLevelForKey(cgLevelKey)
+        let level = Int(cgLevel)
+        
+        self.level = level
         self.collectionBehavior = [.Default, .Transient]
         
         updateSizeAndScreen()
