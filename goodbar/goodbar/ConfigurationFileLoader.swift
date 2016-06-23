@@ -20,8 +20,6 @@ class ConfigurationFileLoader {
                 let barItems = try NSJSONSerialization.JSONObjectWithData(data, options: [])
                 
                 if let barItemsDict = barItems as? [String : AnyObject] {
-                    print(barItems)
-                    
                     let leftSegment: BarSegment
                     let centerSegment: BarSegment
                     let rightSegment: BarSegment

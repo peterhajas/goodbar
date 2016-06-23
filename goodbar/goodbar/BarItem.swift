@@ -46,7 +46,6 @@ struct BarItem {
         let data = handle.readDataToEndOfFile()
         
         if let stringFromData = NSString(data: data, encoding: NSUTF8StringEncoding) {
-            print(stringFromData)
             return stringFromData as String
         }
         else {
