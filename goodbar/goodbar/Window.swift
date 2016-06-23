@@ -14,11 +14,18 @@ class Window : NSWindow {
         
         let screenRect = screenToUse.visibleFrame
         
-        let windowRect = CGRectMake(0, 0, screenRect.width, BarGeometry.height)
+        let yPosition = screenRect.size.height - BarGeometry.height
         
-        self.setFrameOrigin(CGPointMake(0, 0))
+        let windowRect = CGRectMake(0, yPosition, screenRect.width, BarGeometry.height)
+        
         self.minSize = windowRect.size
         self.maxSize = windowRect.size
+        
+        self.setFrame(windowRect, display: true)
+    }
+    
+    override func constrainFrameRect(frameRect: NSRect, toScreen screen: NSScreen?) -> NSRect {
+        return frameRect
     }
     
     private func commonInit() {
