@@ -31,19 +31,49 @@ class BarSegmentView : NSView, BarUpdatable {
     override func layout() {
         super.layout()
         var runningX: CGFloat = 0
+        
+        var totalWidth: CGFloat = 0
+        
         for view in barItemViews {
             let fittingSize = view.fittingSize
             let viewFrame = CGRectMake(runningX, 0, fittingSize.width, self.bounds.size.height)
             view.frame = viewFrame
+            totalWidth += viewFrame.size.width
             
             runningX = view.bounds.size.width
+        }
+        
+        let widthDifference = bounds.size.width - totalWidth
+        var xOffset: CGFloat = 0
+        
+        if barSegment.position == .Center {
+            // We need to center all the views
+            
+            // Shift by the difference in widths / 2
+            
+            xOffset = widthDifference / 2
+        }
+        else if barSegment.position == .Right {
+            // We need to right-justify every view
+            
+            // Shift by the difference in widths
+            
+            xOffset = widthDifference
+        }
+        
+        if xOffset != 0 {
+            for view in barItemViews {
+                var viewFrame = view.frame
+                viewFrame.origin.x += xOffset
+                view.frame = viewFrame
+            }
         }
     }
     
     func updateBarContents() {
         for view in barItemViews {
             view.updateBarContents()
-        }
+        }	
         
         self.needsLayout = true
     }
