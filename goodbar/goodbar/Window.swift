@@ -14,7 +14,8 @@ class Window : NSWindow {
         
         let screenRect = screenToUse.visibleFrame
         
-        let yPosition = screenRect.size.height - BarGeometry.height
+        // 4 is a fudge factor
+        let yPosition = screenRect.size.height - BarGeometry.height + 4
         
         let windowRect = CGRectMake(0, yPosition, screenRect.width, BarGeometry.height)
         
