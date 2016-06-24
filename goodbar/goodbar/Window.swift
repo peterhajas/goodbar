@@ -30,7 +30,7 @@ class Window : NSWindow {
     }
     
     private func commonInit() {
-        let cgLevelKey = CGWindowLevelKey.DesktopWindowLevelKey
+        let cgLevelKey = CGWindowLevelKey.BackstopMenuLevelKey
         let cgLevel = CGWindowLevelForKey(cgLevelKey)
         let level = Int(cgLevel)
         

@@ -17,6 +17,15 @@ class BarView : NSView, BarUpdatable, Fontable {
     var centerSegmentView: BarSegmentView
     var rightSegmentView: BarSegmentView
     
+    let toolTipFormatter = NSDateFormatter()
+    
+    var lastUpdatedDate = NSDate() {
+        didSet {
+            let lastUpdatedDateString = toolTipFormatter.stringFromDate(lastUpdatedDate)
+            toolTip = "Last updated at \(lastUpdatedDateString)"
+        }
+    }
+    
     var font: NSFont? = nil {
         didSet {
             leftSegmentView.font = font
@@ -33,6 +42,9 @@ class BarView : NSView, BarUpdatable, Fontable {
         self.leftSegmentView = BarSegmentView(barSegment: leftSegment)
         self.centerSegmentView = BarSegmentView(barSegment: centerSegment)
         self.rightSegmentView = BarSegmentView(barSegment: rightSegment)
+        
+        toolTipFormatter.dateStyle = .NoStyle
+        toolTipFormatter.timeStyle = .ShortStyle
         
         super.init(frame: CGRectMake(0, 0, 480, BarGeometry.height))
         
@@ -70,6 +82,8 @@ class BarView : NSView, BarUpdatable, Fontable {
         leftSegmentView.updateBarContents()
         centerSegmentView.updateBarContents()
         rightSegmentView.updateBarContents()
+        
+        lastUpdatedDate = NSDate()
     }
     
     required init?(coder: NSCoder) {
