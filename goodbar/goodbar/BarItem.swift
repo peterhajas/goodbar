@@ -42,14 +42,10 @@ struct BarItem {
         
         task.launch()
         
-        sleep(1)
-        task.terminate()
-        
-        // Waiting seems busted right now...
-//        task.waitUntilExit()
-        
         let handle = pipe.fileHandleForReading
         let data = handle.readDataToEndOfFile()
+        
+        task.terminate()
         
         if let stringFromData = NSString(data: data, encoding: NSUTF8StringEncoding) {
             return stringFromData as String
