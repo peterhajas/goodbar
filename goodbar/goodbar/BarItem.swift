@@ -44,6 +44,7 @@ struct BarItem {
         
         let handle = pipe.fileHandleForReading
         let data = handle.readDataToEndOfFile()
+        handle.closeFile()
         
         task.terminate()
         
