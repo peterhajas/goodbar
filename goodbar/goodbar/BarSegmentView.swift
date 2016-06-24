@@ -39,8 +39,7 @@ class BarSegmentView : NSView, BarUpdatable {
             let viewFrame = CGRectMake(runningX, 0, fittingSize.width, self.bounds.size.height)
             view.frame = viewFrame
             totalWidth += viewFrame.size.width
-            
-            runningX = view.bounds.size.width
+            runningX += view.bounds.size.width
         }
         
         let widthDifference = bounds.size.width - totalWidth
