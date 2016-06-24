@@ -8,9 +8,17 @@
 
 import Cocoa
 
-class BarSegmentView : NSView, BarUpdatable {
+class BarSegmentView : NSView, BarUpdatable, Fontable {
     let barSegment: BarSegment
     var barItemViews = [BarItemView]()
+    
+    var font: NSFont? {
+        didSet {
+            for view in barItemViews {
+                view.font = font
+            }
+        }
+    }
     
     init(barSegment: BarSegment) {
         self.barSegment = barSegment

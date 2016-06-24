@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class BarView : NSView, BarUpdatable {
+class BarView : NSView, BarUpdatable, Fontable {
     var leftSegment: BarSegment
     var centerSegment: BarSegment
     var rightSegment: BarSegment
@@ -16,6 +16,14 @@ class BarView : NSView, BarUpdatable {
     var leftSegmentView: BarSegmentView
     var centerSegmentView: BarSegmentView
     var rightSegmentView: BarSegmentView
+    
+    var font: NSFont? = nil {
+        didSet {
+            leftSegmentView.font = font
+            centerSegmentView.font = font
+            rightSegmentView.font = font
+        }
+    }
     
     init(leftSegment: BarSegment, centerSegment: BarSegment, rightSegment: BarSegment) {
         self.leftSegment = leftSegment
@@ -36,6 +44,12 @@ class BarView : NSView, BarUpdatable {
         
         for view in views {
             self.addSubview(view)
+        }
+    }
+    
+    var backgroundColor: NSColor = NSColor.clearColor() {
+        didSet {
+            layer!.backgroundColor = backgroundColor.CGColor
         }
     }
     

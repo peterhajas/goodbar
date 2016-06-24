@@ -6,6 +6,8 @@
 //  Copyright © 2016 Peter Hajas. All rights reserved.
 //
 
+import Cocoa
+
 protocol BarUpdatable {
     func updateBarContents()
 }

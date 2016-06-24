@@ -19,8 +19,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         updateTimer = NSTimer(timeInterval: 1, target: self, selector: #selector(AppDelegate.update), userInfo: nil, repeats: true)
         NSRunLoop.mainRunLoop().addTimer(updateTimer!, forMode: NSRunLoopCommonModes)
         
-        configFileLoader.loadConfigurationFile { (leftSegment, centerSegment, rightSegment) in
+        configFileLoader.loadConfigurationFile { (leftSegment, centerSegment, rightSegment, height, backgroundColor, font) in
             self.barView = BarView(leftSegment: leftSegment, centerSegment: centerSegment, rightSegment: rightSegment)
+            self.barView!.backgroundColor = backgroundColor
+            self.barView!.font = font
             self.window.contentView = self.barView
             self.update()
         }

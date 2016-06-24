@@ -8,12 +8,18 @@
 
 import Cocoa
 
-class BarItemView : NSView, BarUpdatable {
+class BarItemView : NSView, BarUpdatable, Fontable {
     let barItem: BarItem
     let label = NSTextField()
     var textAlignment: NSTextAlignment = .Center {
         didSet {
             self.updateBarContents()
+        }
+    }
+    
+    var font: NSFont? = nil {
+        didSet {
+            updateBarContents()
         }
     }
     
@@ -44,13 +50,14 @@ class BarItemView : NSView, BarUpdatable {
     }
     
     func updateBarContents() {
-        let output = self.barItem.currentOutput()
-        let font = NSFont(name: "Menlo", size: 12)!
-        let attributes: [String : AnyObject]
-        attributes = [NSForegroundColorAttributeName : self.barItem.color,
-                      NSFontAttributeName : font]
-        let attributedString = NSAttributedString(string: output, attributes: attributes)
-        label.attributedStringValue = attributedString
+        if let font = font {
+            let output = self.barItem.currentOutput()
+            let attributes: [String : AnyObject]
+            attributes = [NSForegroundColorAttributeName : self.barItem.color,
+                          NSFontAttributeName : font]
+            let attributedString = NSAttributedString(string: output, attributes: attributes)
+            label.attributedStringValue = attributedString
+        }
     }
     
     required init?(coder: NSCoder) {
