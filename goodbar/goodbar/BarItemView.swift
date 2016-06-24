@@ -28,6 +28,8 @@ class BarItemView : NSView, BarUpdatable {
         label.editable = false
         label.selectable = false
         label.backgroundColor = NSColor.clearColor()
+        label.bordered = false
+        label.bezeled = false
         label.textColor = barItem.color
     }
     

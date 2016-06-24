@@ -10,6 +10,6 @@ import CoreGraphics
 
 struct BarGeometry {
     static var height: CGFloat {
-        return 20
+        return 23
     }
 }

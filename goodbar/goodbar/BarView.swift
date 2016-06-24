@@ -32,10 +32,6 @@ class BarView : NSView, BarUpdatable {
         
         self.wantsLayer = true
         
-        self.layer?.borderColor = NSColor.redColor().CGColor
-        self.layer?.borderWidth = 3
-        self.layer?.backgroundColor = NSColor.blueColor().CGColor
-        
         let views = [leftSegmentView, centerSegmentView, rightSegmentView]
         
         for view in views {
