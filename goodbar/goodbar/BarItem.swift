@@ -19,8 +19,14 @@ struct BarItem {
     
     init(dictionaryRepresentation: NSDictionary) {
         let script = dictionaryRepresentation["script"] as! String
-        let color = NSColor.orangeColor()
+        var color = NSColor.orangeColor() // sane defaults
         
+        if let colorStringFromFile = dictionaryRepresentation["color"] as? String {
+            if let colorFromFile = NSColor.withCSSString(colorStringFromFile) {
+                color = colorFromFile
+            }
+        }
+                
         self.init(script: script, color: color)
     }
     

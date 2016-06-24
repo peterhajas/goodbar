@@ -17,6 +17,7 @@
 		4F5B95B21CF2CD1800AC49BF /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5B95B11CF2CD1800AC49BF /* Window.swift */; };
 		4F5B95B51CF2D43D00AC49BF /* BarSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5B95B41CF2D43D00AC49BF /* BarSegmentView.swift */; };
 		4F5B95B71CF2D48B00AC49BF /* BarItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5B95B61CF2D48B00AC49BF /* BarItemView.swift */; };
+		4F648E701D1CD9BC000655B4 /* NSColor_CSS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F648E6F1D1CD9BC000655B4 /* NSColor_CSS.swift */; };
 		4FE6880E1CF2D7F3008C7062 /* BarGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE6880D1CF2D7F3008C7062 /* BarGeometry.swift */; };
 		4FE688101CF2DD0F008C7062 /* BarUpdatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE6880F1CF2DD0F008C7062 /* BarUpdatable.swift */; };
 /* End PBXBuildFile section */
@@ -34,6 +35,7 @@
 		4F5B95B11CF2CD1800AC49BF /* Window.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
 		4F5B95B41CF2D43D00AC49BF /* BarSegmentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarSegmentView.swift; sourceTree = "<group>"; };
 		4F5B95B61CF2D48B00AC49BF /* BarItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarItemView.swift; sourceTree = "<group>"; };
+		4F648E6F1D1CD9BC000655B4 /* NSColor_CSS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSColor_CSS.swift; sourceTree = "<group>"; };
 		4FE6880D1CF2D7F3008C7062 /* BarGeometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarGeometry.swift; sourceTree = "<group>"; };
 		4FE6880F1CF2DD0F008C7062 /* BarUpdatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarUpdatable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -92,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				4F5B95AB1CF2C3F200AC49BF /* ConfigurationFileLoader.swift */,
+				4F648E6F1D1CD9BC000655B4 /* NSColor_CSS.swift */,
 			);
 			name = "Config Files";
 			sourceTree = "<group>";
@@ -187,6 +190,7 @@
 				4F5B95AC1CF2C3F200AC49BF /* ConfigurationFileLoader.swift in Sources */,
 				4F5B95B01CF2CC6800AC49BF /* BarView.swift in Sources */,
 				4FE6880E1CF2D7F3008C7062 /* BarGeometry.swift in Sources */,
+				4F648E701D1CD9BC000655B4 /* NSColor_CSS.swift in Sources */,
 				4FE688101CF2DD0F008C7062 /* BarUpdatable.swift in Sources */,
 				4F5B95B21CF2CD1800AC49BF /* Window.swift in Sources */,
 			);
