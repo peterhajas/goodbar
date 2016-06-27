@@ -30,29 +30,37 @@ struct BarItem {
         self.init(script: script, color: color)
     }
     
-    func currentOutput() -> String {
-        let task = NSTask()
-        let pipe = NSPipe()
-        
-        let command = ((self.script as NSString).stringByExpandingTildeInPath) as String
-        
-        task.launchPath = "/bin/bash"
-        task.arguments = ["-c", command]
-        task.standardOutput = pipe
-        
-        task.launch()
-        
-        let handle = pipe.fileHandleForReading
-        let data = handle.readDataToEndOfFile()
-        handle.closeFile()
-        
-        task.terminate()
-        
-        if let stringFromData = NSString(data: data, encoding: NSUTF8StringEncoding) {
-            return stringFromData as String
-        }
-        else {
-            return ""
+    func getCurrentOutput(handler: (String) -> Void) {
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) {
+            let task = NSTask()
+            let pipe = NSPipe()
+            
+            let command = ((self.script as NSString).stringByExpandingTildeInPath) as String
+            
+            task.launchPath = "/bin/bash"
+            task.arguments = ["-c", command]
+            task.standardOutput = pipe
+            
+            task.launch()
+            
+            let handle = pipe.fileHandleForReading
+            let data = handle.readDataToEndOfFile()
+            handle.closeFile()
+            
+            task.terminate()
+            
+            let output: String
+            
+            if let stringFromData = NSString(data: data, encoding: NSUTF8StringEncoding) {
+                output = stringFromData as String
+            }
+            else {
+                output = ""
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                handler(output)
+            })
         }
     }
 }

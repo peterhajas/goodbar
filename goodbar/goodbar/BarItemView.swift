@@ -60,19 +60,19 @@ class BarItemView : NSView, BarUpdatable, Fontable {
     
     func updateBarContents() {
         if let font = font {
-            let output = self.barItem.currentOutput()
-            
-            if output != lastOutput {
-                lastOutput = output
-                
-                let attributes: [String : AnyObject]
-                attributes = [NSForegroundColorAttributeName : self.barItem.color,
-                              NSFontAttributeName : font]
-                let attributedString = NSAttributedString(string: output, attributes: attributes)
-                label.attributedStringValue = attributedString
-                
-                layoutDelegate?.barItemViewChangedContents(self)
-            }
+            barItem.getCurrentOutput({ (output) in
+                if output != self.lastOutput {
+                    self.lastOutput = output
+                    
+                    let attributes: [String : AnyObject]
+                    attributes = [NSForegroundColorAttributeName : self.barItem.color,
+                        NSFontAttributeName : font]
+                    let attributedString = NSAttributedString(string: output, attributes: attributes)
+                    self.label.attributedStringValue = attributedString
+                    
+                    self.layoutDelegate?.barItemViewChangedContents(self)
+                }
+            })
         }
     }
     
