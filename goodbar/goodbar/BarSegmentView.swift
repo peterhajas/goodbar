@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class BarSegmentView : NSView, BarUpdatable, Fontable {
+class BarSegmentView : NSView, BarUpdatable, Fontable, BarItemViewLayoutDelegate {
     let barSegment: BarSegment
     var barItemViews = [BarItemView]()
     
@@ -33,6 +33,7 @@ class BarSegmentView : NSView, BarUpdatable, Fontable {
         
         for view in barItemViews {
             self.addSubview(view)
+            view.layoutDelegate = self
         }
     }
     
@@ -80,9 +81,11 @@ class BarSegmentView : NSView, BarUpdatable, Fontable {
     func updateBarContents() {
         for view in barItemViews {
             view.updateBarContents()
-        }	
-        
-        self.needsLayout = true
+        }
+    }
+    
+    func barItemViewChangedContents(barItemView: BarItemView) {
+        needsLayout = true
     }
     
     required init?(coder: NSCoder) {

@@ -8,9 +8,17 @@
 
 import Cocoa
 
+protocol BarItemViewLayoutDelegate {
+    func barItemViewChangedContents(barItemView: BarItemView)
+}
+
 class BarItemView : NSView, BarUpdatable, Fontable {
     let barItem: BarItem
     let label = NSTextField()
+    var lastOutput = ""
+    
+    var layoutDelegate: BarItemViewLayoutDelegate? = nil
+    
     var textAlignment: NSTextAlignment = .Center {
         didSet {
             self.updateBarContents()
@@ -53,11 +61,18 @@ class BarItemView : NSView, BarUpdatable, Fontable {
     func updateBarContents() {
         if let font = font {
             let output = self.barItem.currentOutput()
-            let attributes: [String : AnyObject]
-            attributes = [NSForegroundColorAttributeName : self.barItem.color,
-                          NSFontAttributeName : font]
-            let attributedString = NSAttributedString(string: output, attributes: attributes)
-            label.attributedStringValue = attributedString
+            
+            if output != lastOutput {
+                lastOutput = output
+                
+                let attributes: [String : AnyObject]
+                attributes = [NSForegroundColorAttributeName : self.barItem.color,
+                              NSFontAttributeName : font]
+                let attributedString = NSAttributedString(string: output, attributes: attributes)
+                label.attributedStringValue = attributedString
+                
+                layoutDelegate?.barItemViewChangedContents(self)
+            }
         }
     }
     
