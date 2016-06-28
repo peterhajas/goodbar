@@ -46,6 +46,7 @@ class BarItemView : NSView, BarUpdatable, Fontable {
         label.bezeled = false
         label.textColor = barItem.color
         label.lineBreakMode = .ByTruncatingTail
+        label.translatesAutoresizingMaskIntoConstraints = false
     }
     
     override func layout() {
