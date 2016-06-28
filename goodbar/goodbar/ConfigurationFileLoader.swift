@@ -46,9 +46,17 @@ class ConfigurationFileLoader {
                         rightSegment = BarSegment(position: .Right, items: emptyItems)
                     }
                     
+                    // Optional Global Options
+                    
                     var height = defaultHeight
                     var backgroundColor = defaultBackgroundColor
                     var font = defaultFont
+                    
+                    if let specifiedBackgroundColorString = configDict["backgroundColor"] {
+                        if let colorForCSS = NSColor.withCSSString(specifiedBackgroundColorString as! String) {
+                            backgroundColor = colorForCSS
+                        }
+                    }
                     
                     handler(leftSegment: leftSegment, centerSegment: centerSegment, rightSegment: rightSegment, height: height, backgroundColor: backgroundColor, font: font)
                 }
