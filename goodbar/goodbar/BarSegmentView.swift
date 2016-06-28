@@ -37,6 +37,17 @@ class BarSegmentView : NSView, BarUpdatable, BarConfigurable, BarItemViewLayoutD
         }
     }
     
+    func barItemViewCanTakeUpRemainingWidth(itemView: BarItemView) -> Bool {
+        switch barSegment.position {
+        case .Left:
+            return barItemViews.last == itemView
+        case .Center:
+            return barItemViews.count == 1
+        case .Right:
+            return barItemViews.first == itemView
+        }
+    }
+    
     override func layout() {
         super.layout()
         var totalItemWidth: CGFloat = 0
@@ -70,6 +81,11 @@ class BarSegmentView : NSView, BarUpdatable, BarConfigurable, BarItemViewLayoutD
             for view in barItemViews {
                 var viewFrame = view.frame
                 viewFrame.origin.x += xOffset
+                
+                if barItemViewCanTakeUpRemainingWidth(view) {
+                    viewFrame.size.width += widthDifference
+                }
+                
                 view.frame = viewFrame
             }
         }
