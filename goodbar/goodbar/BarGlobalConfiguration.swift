@@ -24,4 +24,40 @@ struct BarGlobalConfiguration {
     static func defaultConfiguration() -> BarGlobalConfiguration {
         return BarGlobalConfiguration(backgroundColor: defaultBackgroundColor, font: defaultFont, height: defaultHeight, verticalOffset: defaultVerticalOffset, insetPercent: defaultInsetPercent)
     }
+    
+    static func withPotentiallyNilOptions(backgroundColor: NSColor?, fontName: String?, fontSize: CGFloat?, height: CGFloat?, verticalOffset: CGFloat?, insetPercent: Double?) -> BarGlobalConfiguration {
+        
+        var actualBackgroundColor = defaultBackgroundColor
+        var actualFont = defaultFont
+        var actualHeight = defaultHeight
+        var actualVerticalOffset = defaultVerticalOffset
+        var actualInsetPercent = defaultInsetPercent
+        
+        if backgroundColor != nil {
+            actualBackgroundColor = backgroundColor!
+        }
+        if fontName != nil {
+            if let font = NSFont(name: fontName!, size: actualFont.pointSize) {
+                actualFont = font
+            }
+        }
+        if fontSize != nil {
+            if let font = NSFont(name: actualFont.fontName, size: fontSize!) {
+                actualFont = font
+            }
+        }
+        if height != nil {
+            actualHeight = height!
+        }
+        if verticalOffset != nil {
+            actualVerticalOffset = verticalOffset!
+        }
+        if insetPercent != nil {
+            actualInsetPercent = insetPercent!
+        }
+        
+        let configuration = BarGlobalConfiguration(backgroundColor: actualBackgroundColor, font: actualFont, height: actualHeight, verticalOffset: actualVerticalOffset, insetPercent: actualInsetPercent)
+        
+        return configuration
+    }
 }

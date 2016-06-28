@@ -12,15 +12,6 @@ class ConfigurationFileLoader {
     func loadConfigurationFile(handler: (leftSegment: BarSegment, centerSegment: BarSegment, rightSegment: BarSegment, barGlobalConfiguration: BarGlobalConfiguration) -> Void) {
         let emptyItems = [BarItem]()
         
-        // Defaults
-        let defaultHeight = BarGlobalConfiguration.defaultHeight
-        
-        let defaultBackgroundColor = BarGlobalConfiguration.defaultBackgroundColor
-        
-        let defaultFont = BarGlobalConfiguration.defaultFont
-        let defaultFontName = defaultFont.fontName
-        let defaultFontSize = defaultFont.pointSize
-        
         let configFilePath = ("~/.goodbar" as NSString).stringByExpandingTildeInPath
         if NSFileManager.defaultManager().fileExistsAtPath(configFilePath) {
             let data = NSData.init(contentsOfFile: configFilePath)!
@@ -54,14 +45,10 @@ class ConfigurationFileLoader {
                     
                     // Optional Global Options
                     
-                    var height = defaultHeight
-                    var backgroundColor = defaultBackgroundColor
-                    var fontName = defaultFontName
-                    var fontSize = defaultFontSize
-                    
-                    if let specifiedHeightInt = configDict["height"] {
-                        height = CGFloat(specifiedHeightInt as! Int)
-                    }
+                    var backgroundColor: NSColor? = nil
+                    var height: CGFloat? = nil
+                    var fontName: String? = nil
+                    var fontSize: CGFloat? = nil
                     
                     if let specifiedBackgroundColorString = configDict["backgroundColor"] {
                         if let colorForCSS = NSColor.withCSSString(specifiedBackgroundColorString as! String) {
@@ -69,24 +56,19 @@ class ConfigurationFileLoader {
                         }
                     }
                     
-                    if let specifiedFontNameString = configDict["fontName"] {
-                        fontName = specifiedFontNameString as! String
+                    if let specifiedHeightInt = configDict["height"] as? Int {
+                        height = CGFloat(specifiedHeightInt)
                     }
                     
-                    if let specifiedFontSize = configDict["fontSize"] {
-                        fontSize = CGFloat(specifiedFontSize as! Int)
+                    if let specifiedFontNameString = configDict["fontName"] as? String {
+                        fontName = specifiedFontNameString
                     }
                     
-                    let font: NSFont
-                    
-                    if let specifiedFont = NSFont(name: fontName, size: fontSize) {
-                        font = specifiedFont
-                    }
-                    else {
-                        font = defaultFont
+                    if let specifiedFontSize = configDict["fontSize"] as? Int {
+                        fontSize = CGFloat(specifiedFontSize)
                     }
                     
-                    let barGlobalConfiguration = BarGlobalConfiguration(backgroundColor: backgroundColor, font: font, height: height, verticalOffset: 0.0, insetPercent: 0.0)
+                    let barGlobalConfiguration = BarGlobalConfiguration.withPotentiallyNilOptions(backgroundColor, fontName: fontName, fontSize: fontSize, height: height, verticalOffset: 0.0, insetPercent: 0.0)
                     
                     handler(leftSegment: leftSegment, centerSegment: centerSegment, rightSegment: rightSegment, barGlobalConfiguration: barGlobalConfiguration)
                 }
