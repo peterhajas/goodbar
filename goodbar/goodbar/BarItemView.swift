@@ -15,6 +15,7 @@ protocol BarItemViewLayoutDelegate {
 class BarItemView : NSView, BarUpdatable, Fontable {
     let barItem: BarItem
     let label = NSTextField()
+    var attributes: [String : AnyObject] = [String : AnyObject]()
     var lastOutput = ""
     
     var layoutDelegate: BarItemViewLayoutDelegate? = nil
@@ -27,7 +28,11 @@ class BarItemView : NSView, BarUpdatable, Fontable {
     
     var font: NSFont? = nil {
         didSet {
-            updateBarContents()
+            if let font = font {
+                attributes = [NSForegroundColorAttributeName : barItem.color,
+                              NSFontAttributeName : font]
+                updateBarContents()
+            }
         }
     }
     
@@ -60,21 +65,16 @@ class BarItemView : NSView, BarUpdatable, Fontable {
     }
     
     func updateBarContents() {
-        if let font = font {
-            barItem.getCurrentOutput({ (output) in
-                if output != self.lastOutput {
-                    self.lastOutput = output
-                    
-                    let attributes: [String : AnyObject]
-                    attributes = [NSForegroundColorAttributeName : self.barItem.color,
-                        NSFontAttributeName : font]
-                    let attributedString = NSAttributedString(string: output, attributes: attributes)
-                    self.label.attributedStringValue = attributedString
-                    
-                    self.layoutDelegate?.barItemViewChangedContents(self)
-                }
-            })
-        }
+        barItem.getCurrentOutput({ (output) in
+            if output != self.lastOutput {
+                self.lastOutput = output
+                
+                let attributedString = NSAttributedString(string: output, attributes: self.attributes)
+                self.label.attributedStringValue = attributedString
+                
+                self.layoutDelegate?.barItemViewChangedContents(self)
+            }
+        })
     }
     
     required init?(coder: NSCoder) {
