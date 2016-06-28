@@ -12,7 +12,7 @@ protocol BarItemViewLayoutDelegate {
     func barItemViewChangedContents(barItemView: BarItemView)
 }
 
-class BarItemView : NSView, BarUpdatable, Fontable {
+class BarItemView : NSView, BarUpdatable, BarConfigurable {
     let barItem: BarItem
     let label = NSTextField()
     var attributes: [String : AnyObject] = [String : AnyObject]()
@@ -27,13 +27,11 @@ class BarItemView : NSView, BarUpdatable, Fontable {
         }
     }
     
-    var font: NSFont? = nil {
+    var barGlobalConfiguration = BarGlobalConfiguration.defaultConfiguration() {
         didSet {
-            if let font = font {
-                attributes = [NSForegroundColorAttributeName : barItem.color,
-                              NSFontAttributeName : font]
-                updateBarContents()
-            }
+            attributes = [NSForegroundColorAttributeName : barItem.color,
+                          NSFontAttributeName : barGlobalConfiguration.font]
+            updateBarContents()
         }
     }
     

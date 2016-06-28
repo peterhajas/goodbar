@@ -21,10 +21,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         configFileLoader.loadConfigurationFile { (leftSegment, centerSegment, rightSegment, barGlobalConfiguration) in
             self.barView = BarView(leftSegment: leftSegment, centerSegment: centerSegment, rightSegment: rightSegment)
-            self.barView!.backgroundColor = barGlobalConfiguration.backgroundColor
-            self.barView!.font = barGlobalConfiguration.font
-            self.barView!.height = barGlobalConfiguration.height
-            (self.window as! Window).height = barGlobalConfiguration.height
+            self.barView!.barGlobalConfiguration = barGlobalConfiguration
+            (self.window as! Window).barGlobalConfiguration = barGlobalConfiguration
             self.window.contentView = self.barView
             self.update()
         }

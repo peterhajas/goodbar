@@ -8,8 +8,8 @@
 
 import Cocoa
 
-class Window : NSWindow, HeightConfigurable {
-    var height: CGFloat = 0 {
+class Window : NSWindow, BarConfigurable {
+    var barGlobalConfiguration = BarGlobalConfiguration.defaultConfiguration() {
         didSet {
             updateSizeAndScreen()
         }
@@ -19,6 +19,8 @@ class Window : NSWindow, HeightConfigurable {
         let screenToUse = NSScreen.screens()![0]
         
         let screenRect = screenToUse.visibleFrame
+        
+        let height = barGlobalConfiguration.height
         
         // 4 is a fudge factor
         let yPosition = screenRect.size.height - height + 4

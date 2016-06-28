@@ -19,8 +19,7 @@
 		4F5B95B51CF2D43D00AC49BF /* BarSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5B95B41CF2D43D00AC49BF /* BarSegmentView.swift */; };
 		4F5B95B71CF2D48B00AC49BF /* BarItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5B95B61CF2D48B00AC49BF /* BarItemView.swift */; };
 		4F648E701D1CD9BC000655B4 /* NSColor_CSS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F648E6F1D1CD9BC000655B4 /* NSColor_CSS.swift */; };
-		4F648E721D1CE1A0000655B4 /* Fontable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F648E711D1CE1A0000655B4 /* Fontable.swift */; };
-		4FACCDFF1D22149700063A69 /* HeightConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FACCDFE1D22149700063A69 /* HeightConfigurable.swift */; };
+		4FACCDFF1D22149700063A69 /* BarConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FACCDFE1D22149700063A69 /* BarConfigurable.swift */; };
 		4FE688101CF2DD0F008C7062 /* BarUpdatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE6880F1CF2DD0F008C7062 /* BarUpdatable.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,8 +38,7 @@
 		4F5B95B41CF2D43D00AC49BF /* BarSegmentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarSegmentView.swift; sourceTree = "<group>"; };
 		4F5B95B61CF2D48B00AC49BF /* BarItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarItemView.swift; sourceTree = "<group>"; };
 		4F648E6F1D1CD9BC000655B4 /* NSColor_CSS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSColor_CSS.swift; sourceTree = "<group>"; };
-		4F648E711D1CE1A0000655B4 /* Fontable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fontable.swift; sourceTree = "<group>"; };
-		4FACCDFE1D22149700063A69 /* HeightConfigurable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeightConfigurable.swift; sourceTree = "<group>"; };
+		4FACCDFE1D22149700063A69 /* BarConfigurable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarConfigurable.swift; sourceTree = "<group>"; };
 		4FE6880F1CF2DD0F008C7062 /* BarUpdatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarUpdatable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -109,8 +107,7 @@
 			children = (
 				4F5B95B11CF2CD1800AC49BF /* Window.swift */,
 				4FE6880F1CF2DD0F008C7062 /* BarUpdatable.swift */,
-				4F648E711D1CE1A0000655B4 /* Fontable.swift */,
-				4FACCDFE1D22149700063A69 /* HeightConfigurable.swift */,
+				4FACCDFE1D22149700063A69 /* BarConfigurable.swift */,
 				4F5B95AF1CF2CC6800AC49BF /* BarView.swift */,
 				4F5B95B41CF2D43D00AC49BF /* BarSegmentView.swift */,
 				4F5B95B61CF2D48B00AC49BF /* BarItemView.swift */,
@@ -189,11 +186,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F5B95A81CF2C15000AC49BF /* BarItem.swift in Sources */,
-				4FACCDFF1D22149700063A69 /* HeightConfigurable.swift in Sources */,
+				4FACCDFF1D22149700063A69 /* BarConfigurable.swift in Sources */,
 				4F5B95B51CF2D43D00AC49BF /* BarSegmentView.swift in Sources */,
 				4F5B959B1CF2BD4C00AC49BF /* AppDelegate.swift in Sources */,
 				4F5B95B71CF2D48B00AC49BF /* BarItemView.swift in Sources */,
-				4F648E721D1CE1A0000655B4 /* Fontable.swift in Sources */,
 				4F5B95AA1CF2C32F00AC49BF /* BarSegment.swift in Sources */,
 				4F5B95AC1CF2C3F200AC49BF /* ConfigurationFileLoader.swift in Sources */,
 				4F3400EE1D22D01F007973E6 /* BarGlobalConfiguration.swift in Sources */,

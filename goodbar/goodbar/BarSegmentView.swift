@@ -8,14 +8,14 @@
 
 import Cocoa
 
-class BarSegmentView : NSView, BarUpdatable, Fontable, BarItemViewLayoutDelegate {
+class BarSegmentView : NSView, BarUpdatable, BarConfigurable, BarItemViewLayoutDelegate {
     let barSegment: BarSegment
     var barItemViews = [BarItemView]()
     
-    var font: NSFont? {
+    var barGlobalConfiguration = BarGlobalConfiguration.defaultConfiguration() {
         didSet {
             for view in barItemViews {
-                view.font = font
+                view.barGlobalConfiguration = barGlobalConfiguration
             }
         }
     }
