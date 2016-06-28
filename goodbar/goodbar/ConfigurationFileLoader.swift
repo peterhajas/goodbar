@@ -46,18 +46,16 @@ class ConfigurationFileLoader {
                     // Optional Global Options
                     
                     var backgroundColor: NSColor? = nil
-                    var height: CGFloat? = nil
                     var fontName: String? = nil
                     var fontSize: CGFloat? = nil
-                    
+                    var height: CGFloat? = nil
+                    var edgeOffset: CGFloat? = nil
+                    var insetPercent: Double? = nil
+
                     if let specifiedBackgroundColorString = configDict["backgroundColor"] {
                         if let colorForCSS = NSColor.withCSSString(specifiedBackgroundColorString as! String) {
                             backgroundColor = colorForCSS
                         }
-                    }
-                    
-                    if let specifiedHeightInt = configDict["height"] as? Int {
-                        height = CGFloat(specifiedHeightInt)
                     }
                     
                     if let specifiedFontNameString = configDict["fontName"] as? String {
@@ -68,7 +66,19 @@ class ConfigurationFileLoader {
                         fontSize = CGFloat(specifiedFontSize)
                     }
                     
-                    let barGlobalConfiguration = BarGlobalConfiguration.withPotentiallyNilOptions(backgroundColor, fontName: fontName, fontSize: fontSize, height: height, verticalOffset: 0.0, insetPercent: 0.0)
+                    if let specifiedHeightInt = configDict["height"] as? Int {
+                        height = CGFloat(specifiedHeightInt)
+                    }
+                    
+                    if let specifiedEdgeOffset = configDict["edgeOffset"] as? Int {
+                        edgeOffset = CGFloat(specifiedEdgeOffset)
+                    }
+                    
+                    if let specifiedInsetPercent = configDict["insetPercent"] as? Double {
+                        insetPercent = specifiedInsetPercent
+                    }
+                    
+                    let barGlobalConfiguration = BarGlobalConfiguration.withPotentiallyNilOptions(backgroundColor, fontName: fontName, fontSize: fontSize, height: height, edgeOffset: edgeOffset, insetPercent: insetPercent)
                     
                     handler(leftSegment: leftSegment, centerSegment: centerSegment, rightSegment: rightSegment, barGlobalConfiguration: barGlobalConfiguration)
                 }

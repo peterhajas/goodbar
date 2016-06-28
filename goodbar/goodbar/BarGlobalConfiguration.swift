@@ -12,25 +12,25 @@ struct BarGlobalConfiguration {
     static let defaultBackgroundColor = NSColor.withCSSString("#2d2d2d")!
     static let defaultFont = NSFont(name: "Menlo", size: 14.0)!
     static let defaultHeight: CGFloat = 23
-    static let defaultVerticalOffset: CGFloat = 0
+    static let defaultEdgeOffset: CGFloat = 0
     static let defaultInsetPercent = 0.0
     
     let backgroundColor: NSColor
     let font: NSFont
     let height: CGFloat
-    let verticalOffset: CGFloat
+    let edgeOffset: CGFloat
     let insetPercent: Double
     
     static func defaultConfiguration() -> BarGlobalConfiguration {
-        return BarGlobalConfiguration(backgroundColor: defaultBackgroundColor, font: defaultFont, height: defaultHeight, verticalOffset: defaultVerticalOffset, insetPercent: defaultInsetPercent)
+        return BarGlobalConfiguration(backgroundColor: defaultBackgroundColor, font: defaultFont, height: defaultHeight, edgeOffset: defaultEdgeOffset, insetPercent: defaultInsetPercent)
     }
     
-    static func withPotentiallyNilOptions(backgroundColor: NSColor?, fontName: String?, fontSize: CGFloat?, height: CGFloat?, verticalOffset: CGFloat?, insetPercent: Double?) -> BarGlobalConfiguration {
+    static func withPotentiallyNilOptions(backgroundColor: NSColor?, fontName: String?, fontSize: CGFloat?, height: CGFloat?, edgeOffset: CGFloat?, insetPercent: Double?) -> BarGlobalConfiguration {
         
         var actualBackgroundColor = defaultBackgroundColor
         var actualFont = defaultFont
         var actualHeight = defaultHeight
-        var actualVerticalOffset = defaultVerticalOffset
+        var actualEdgeOffset = defaultEdgeOffset
         var actualInsetPercent = defaultInsetPercent
         
         if backgroundColor != nil {
@@ -49,14 +49,14 @@ struct BarGlobalConfiguration {
         if height != nil {
             actualHeight = height!
         }
-        if verticalOffset != nil {
-            actualVerticalOffset = verticalOffset!
+        if edgeOffset != nil {
+            actualEdgeOffset = edgeOffset!
         }
         if insetPercent != nil {
             actualInsetPercent = insetPercent!
         }
         
-        let configuration = BarGlobalConfiguration(backgroundColor: actualBackgroundColor, font: actualFont, height: actualHeight, verticalOffset: actualVerticalOffset, insetPercent: actualInsetPercent)
+        let configuration = BarGlobalConfiguration(backgroundColor: actualBackgroundColor, font: actualFont, height: actualHeight, edgeOffset: actualEdgeOffset, insetPercent: actualInsetPercent)
         
         return configuration
     }
