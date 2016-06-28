@@ -17,6 +17,7 @@ class BarItemView : NSView, BarUpdatable, Fontable {
     let label = NSTextField()
     var attributes: [String : AnyObject] = [String : AnyObject]()
     var lastOutput = ""
+    var lastFittingSize = CGSize.zero
     
     var layoutDelegate: BarItemViewLayoutDelegate? = nil
     
@@ -72,7 +73,10 @@ class BarItemView : NSView, BarUpdatable, Fontable {
                 let attributedString = NSAttributedString(string: output, attributes: self.attributes)
                 self.label.attributedStringValue = attributedString
                 
-                self.layoutDelegate?.barItemViewChangedContents(self)
+                if self.fittingSize != self.lastFittingSize {
+                    self.lastFittingSize = self.fittingSize
+                    self.layoutDelegate?.barItemViewChangedContents(self)
+                }
             }
         })
     }
