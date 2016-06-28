@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F3400EE1D22D01F007973E6 /* BarGlobalConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3400ED1D22D01F007973E6 /* BarGlobalConfiguration.swift */; };
 		4F5B959B1CF2BD4C00AC49BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5B959A1CF2BD4C00AC49BF /* AppDelegate.swift */; };
 		4F5B959D1CF2BD4D00AC49BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F5B959C1CF2BD4D00AC49BF /* Assets.xcassets */; };
 		4F5B95A01CF2BD4D00AC49BF /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F5B959E1CF2BD4D00AC49BF /* MainMenu.xib */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4F3400ED1D22D01F007973E6 /* BarGlobalConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarGlobalConfiguration.swift; sourceTree = "<group>"; };
 		4F5B95971CF2BD4C00AC49BF /* goodbar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = goodbar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F5B959A1CF2BD4C00AC49BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4F5B959C1CF2BD4D00AC49BF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 			children = (
 				4F5B95A91CF2C32F00AC49BF /* BarSegment.swift */,
 				4F5B95A71CF2C15000AC49BF /* BarItem.swift */,
+				4F3400ED1D22D01F007973E6 /* BarGlobalConfiguration.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -193,6 +196,7 @@
 				4F648E721D1CE1A0000655B4 /* Fontable.swift in Sources */,
 				4F5B95AA1CF2C32F00AC49BF /* BarSegment.swift in Sources */,
 				4F5B95AC1CF2C3F200AC49BF /* ConfigurationFileLoader.swift in Sources */,
+				4F3400EE1D22D01F007973E6 /* BarGlobalConfiguration.swift in Sources */,
 				4F5B95B01CF2CC6800AC49BF /* BarView.swift in Sources */,
 				4F648E701D1CD9BC000655B4 /* NSColor_CSS.swift in Sources */,
 				4FE688101CF2DD0F008C7062 /* BarUpdatable.swift in Sources */,
