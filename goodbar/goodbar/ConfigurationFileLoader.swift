@@ -13,7 +13,9 @@ class ConfigurationFileLoader {
         let emptyItems = [BarItem]()
         let defaultHeight: CGFloat = 23
         let defaultBackgroundColor = NSColor.withCSSString("#2d2d2d")!
-        let defaultFont = NSFont(name: "Menlo", size: 14)!
+        let defaultFontName = "Menlo"
+        let defaultFontSize: CGFloat = 14
+        let defaultFont = NSFont(name: defaultFontName, size: defaultFontSize)!
         
         let configFilePath = ("~/.goodbar" as NSString).stringByExpandingTildeInPath
         if NSFileManager.defaultManager().fileExistsAtPath(configFilePath) {
@@ -50,7 +52,8 @@ class ConfigurationFileLoader {
                     
                     var height = defaultHeight
                     var backgroundColor = defaultBackgroundColor
-                    var font = defaultFont
+                    var fontName = defaultFontName
+                    var fontSize = defaultFontSize
                     
                     if let specifiedHeightInt = configDict["height"] {
                         height = CGFloat(specifiedHeightInt as! Int)
@@ -60,6 +63,23 @@ class ConfigurationFileLoader {
                         if let colorForCSS = NSColor.withCSSString(specifiedBackgroundColorString as! String) {
                             backgroundColor = colorForCSS
                         }
+                    }
+                    
+                    if let specifiedFontNameString = configDict["fontName"] {
+                        fontName = specifiedFontNameString as! String
+                    }
+                    
+                    if let specifiedFontSize = configDict["fontSize"] {
+                        fontSize = CGFloat(specifiedFontSize as! Int)
+                    }
+                    
+                    let font: NSFont
+                    
+                    if let specifiedFont = NSFont(name: fontName, size: fontSize) {
+                        font = specifiedFont
+                    }
+                    else {
+                        font = defaultFont
                     }
                     
                     handler(leftSegment: leftSegment, centerSegment: centerSegment, rightSegment: rightSegment, height: height, backgroundColor: backgroundColor, font: font)

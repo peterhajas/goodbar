@@ -51,7 +51,12 @@ goodbar will look for a `.goodbar` file in `~` to populate your bar.
 
 There are three segments: `left`, `center` and `right`. Each segment is an array of items, which are dictionaries which have the `script` and `color` keys. If a color is not provided, orange will be used (a very sane default).
 
-Additionally, there are global values for the entire bar. Currently only the `backgroundColor` and `height` globals are implemented.
+Additionally, there are global values for the entire bar:
+
+ - `backgroundColor` - specify the background color of the bar
+ - `height` - specify the height (in points) of the bar
+ - `fontName` - specify the font name used for items. If no font is found for that name, Menlo will be used
+ - `fontSize` - specify the font size used for items
 
 Colors can be specified with the standard CSS syntax:
 
