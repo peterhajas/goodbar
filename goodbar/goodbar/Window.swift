@@ -21,10 +21,14 @@ class Window : NSWindow, BarConfigurable {
         let screenRect = screenToUse.frame
         
         let height = barGlobalConfiguration.height
+        let edgeOffset = barGlobalConfiguration.edgeOffset
+        let insetPercent = barGlobalConfiguration.insetPercent
         
-        let yPosition = screenRect.size.height - height
+        let xPosition = CGFloat(insetPercent) * screenRect.width
+        let yPosition = screenRect.size.height - (height + edgeOffset)
+        let width = screenRect.width * CGFloat(1 - 2 * insetPercent)
         
-        let windowRect = CGRectMake(0, yPosition, screenRect.width, height)
+        let windowRect = CGRectMake(xPosition, yPosition, width, height)
         
         self.minSize = windowRect.size
         self.maxSize = windowRect.size

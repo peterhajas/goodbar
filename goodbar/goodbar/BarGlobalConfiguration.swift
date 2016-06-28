@@ -12,7 +12,7 @@ struct BarGlobalConfiguration {
     static let defaultBackgroundColor = NSColor.withCSSString("#2d2d2d")!
     static let defaultFont = NSFont(name: "Menlo", size: 14.0)!
     static let defaultHeight: CGFloat = 23
-    static let defaultEdgeOffset: CGFloat = 0
+    static let defaultEdgeOffset: CGFloat = 20
     static let defaultInsetPercent = 0.0
     
     let backgroundColor: NSColor

@@ -57,6 +57,8 @@ Additionally, there are global values for the entire bar:
  - `height` - specify the height (in points) of the bar
  - `fontName` - specify the font name used for items. If no font is found for that name, Menlo will be used
  - `fontSize` - specify the font size used for items
+ - `edgeOffset` - specify the offset from the top edge (in points)
+ - `insetPercent` - specify the percent of the screen width that the bar should be inset (on each side)
 
 Colors can be specified with the standard CSS syntax:
 
