@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class BarView : NSView, BarUpdatable, Fontable {
+class BarView : NSView, BarUpdatable, Fontable, HeightConfigurable {
     var leftSegment: BarSegment
     var centerSegment: BarSegment
     var rightSegment: BarSegment
@@ -34,6 +34,12 @@ class BarView : NSView, BarUpdatable, Fontable {
         }
     }
     
+    var height: CGFloat = 0.0 {
+        didSet {
+            frame.size.height = height
+        }
+    }
+    
     init(leftSegment: BarSegment, centerSegment: BarSegment, rightSegment: BarSegment) {
         self.leftSegment = leftSegment
         self.centerSegment = centerSegment
@@ -46,7 +52,7 @@ class BarView : NSView, BarUpdatable, Fontable {
         toolTipFormatter.dateStyle = .NoStyle
         toolTipFormatter.timeStyle = .ShortStyle
         
-        super.init(frame: CGRectMake(0, 0, 480, BarGeometry.height))
+        super.init(frame: CGRectMake(0, 0, 480, height))
         
         self.autoresizingMask = [.ViewWidthSizable, .ViewHeightSizable]
         

@@ -23,6 +23,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             self.barView = BarView(leftSegment: leftSegment, centerSegment: centerSegment, rightSegment: rightSegment)
             self.barView!.backgroundColor = backgroundColor
             self.barView!.font = font
+            self.barView!.height = height
+            (self.window as! Window).height = height
             self.window.contentView = self.barView
             self.update()
         }

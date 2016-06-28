@@ -11,7 +11,7 @@ import Cocoa
 class ConfigurationFileLoader {
     func loadConfigurationFile(handler: (leftSegment: BarSegment, centerSegment: BarSegment, rightSegment: BarSegment, height: CGFloat, backgroundColor: NSColor, font: NSFont) -> Void) {
         let emptyItems = [BarItem]()
-        let defaultHeight: CGFloat = 27
+        let defaultHeight: CGFloat = 23
         let defaultBackgroundColor = NSColor.withCSSString("#2d2d2d")!
         let defaultFont = NSFont(name: "Menlo", size: 14)!
         
@@ -51,6 +51,10 @@ class ConfigurationFileLoader {
                     var height = defaultHeight
                     var backgroundColor = defaultBackgroundColor
                     var font = defaultFont
+                    
+                    if let specifiedHeightInt = configDict["height"] {
+                        height = CGFloat(specifiedHeightInt as! Int)
+                    }
                     
                     if let specifiedBackgroundColorString = configDict["backgroundColor"] {
                         if let colorForCSS = NSColor.withCSSString(specifiedBackgroundColorString as! String) {

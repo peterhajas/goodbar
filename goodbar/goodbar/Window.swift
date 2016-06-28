@@ -8,16 +8,22 @@
 
 import Cocoa
 
-class Window : NSWindow {
+class Window : NSWindow, HeightConfigurable {
+    var height: CGFloat = 0 {
+        didSet {
+            updateSizeAndScreen()
+        }
+    }
+    
     private func updateSizeAndScreen() {
         let screenToUse = NSScreen.screens()![0]
         
         let screenRect = screenToUse.visibleFrame
         
         // 4 is a fudge factor
-        let yPosition = screenRect.size.height - BarGeometry.height + 4
+        let yPosition = screenRect.size.height - height + 4
         
-        let windowRect = CGRectMake(0, yPosition, screenRect.width, BarGeometry.height)
+        let windowRect = CGRectMake(0, yPosition, screenRect.width, height)
         
         self.minSize = windowRect.size
         self.maxSize = windowRect.size
