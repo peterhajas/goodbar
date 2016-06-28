@@ -39,19 +39,16 @@ class BarSegmentView : NSView, BarUpdatable, BarConfigurable, BarItemViewLayoutD
     
     override func layout() {
         super.layout()
-        var runningX: CGFloat = 0
-        
-        var totalWidth: CGFloat = 0
+        var totalItemWidth: CGFloat = 0
         
         for view in barItemViews {
             let fittingSize = view.fittingSize
-            let viewFrame = CGRectMake(runningX, 0, fittingSize.width, self.bounds.size.height)
+            let viewFrame = CGRectMake(totalItemWidth, 0, fittingSize.width, self.bounds.size.height)
             view.frame = viewFrame
-            totalWidth += viewFrame.size.width
-            runningX += view.bounds.size.width
+            totalItemWidth += viewFrame.size.width
         }
         
-        let widthDifference = bounds.size.width - totalWidth
+        let widthDifference = bounds.size.width - totalItemWidth
         var xOffset: CGFloat = 0
         
         if barSegment.position == .Center {
