@@ -18,12 +18,11 @@ class Window : NSWindow, BarConfigurable {
     private func updateSizeAndScreen() {
         let screenToUse = NSScreen.screens()![0]
         
-        let screenRect = screenToUse.visibleFrame
+        let screenRect = screenToUse.frame
         
         let height = barGlobalConfiguration.height
         
-        // 4 is a fudge factor
-        let yPosition = screenRect.size.height - height + 4
+        let yPosition = screenRect.size.height - height
         
         let windowRect = CGRectMake(0, yPosition, screenRect.width, height)
         
