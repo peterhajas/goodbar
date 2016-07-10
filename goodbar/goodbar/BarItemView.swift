@@ -8,17 +8,29 @@
 
 import Cocoa
 
-class BarItemView : NSView, BarUpdatable, Fontable {
+protocol BarItemViewLayoutDelegate {
+    func barItemViewChangedContents(barItemView: BarItemView)
+}
+
+class BarItemView : NSView, BarUpdatable, BarConfigurable {
     let barItem: BarItem
     let label = NSTextField()
+    var attributes: [String : AnyObject] = [String : AnyObject]()
+    var lastOutput = ""
+    var lastFittingSize = CGSize.zero
+    
+    var layoutDelegate: BarItemViewLayoutDelegate? = nil
+    
     var textAlignment: NSTextAlignment = .Center {
         didSet {
             self.updateBarContents()
         }
     }
     
-    var font: NSFont? = nil {
+    var barGlobalConfiguration = BarGlobalConfiguration.defaultConfiguration() {
         didSet {
+            attributes = [NSForegroundColorAttributeName : barItem.color,
+                          NSFontAttributeName : barGlobalConfiguration.font]
             updateBarContents()
         }
     }
@@ -36,6 +48,8 @@ class BarItemView : NSView, BarUpdatable, Fontable {
         label.bordered = false
         label.bezeled = false
         label.textColor = barItem.color
+        label.lineBreakMode = .ByTruncatingTail
+        label.translatesAutoresizingMaskIntoConstraints = false
     }
     
     override func layout() {
@@ -49,14 +63,19 @@ class BarItemView : NSView, BarUpdatable, Fontable {
     }
     
     func updateBarContents() {
-        if let font = font {
-            let output = self.barItem.currentOutput()
-            let attributes: [String : AnyObject]
-            attributes = [NSForegroundColorAttributeName : self.barItem.color,
-                          NSFontAttributeName : font]
-            let attributedString = NSAttributedString(string: output, attributes: attributes)
-            label.attributedStringValue = attributedString
-        }
+        barItem.getCurrentOutput({ (output) in
+            if output != self.lastOutput {
+                self.lastOutput = output
+                
+                let attributedString = NSAttributedString(string: output, attributes: self.attributes)
+                self.label.attributedStringValue = attributedString
+                
+                if self.fittingSize != self.lastFittingSize {
+                    self.lastFittingSize = self.fittingSize
+                    self.layoutDelegate?.barItemViewChangedContents(self)
+                }
+            }
+        })
     }
     
     required init?(coder: NSCoder) {

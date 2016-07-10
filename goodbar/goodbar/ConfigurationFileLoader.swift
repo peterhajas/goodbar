@@ -9,11 +9,8 @@
 import Cocoa
 
 class ConfigurationFileLoader {
-    func loadConfigurationFile(handler: (leftSegment: BarSegment, centerSegment: BarSegment, rightSegment: BarSegment, height: CGFloat, backgroundColor: NSColor, font: NSFont) -> Void) {
+    func loadConfigurationFile(handler: (leftSegment: BarSegment, centerSegment: BarSegment, rightSegment: BarSegment, barGlobalConfiguration: BarGlobalConfiguration) -> Void) {
         let emptyItems = [BarItem]()
-        let defaultHeight: CGFloat = 27
-        let defaultBackgroundColor = NSColor.withCSSString("#2d2d2d")!
-        let defaultFont = NSFont(name: "Menlo", size: 14)!
         
         let configFilePath = ("~/.goodbar" as NSString).stringByExpandingTildeInPath
         if NSFileManager.defaultManager().fileExistsAtPath(configFilePath) {
@@ -46,11 +43,44 @@ class ConfigurationFileLoader {
                         rightSegment = BarSegment(position: .Right, items: emptyItems)
                     }
                     
-                    var height = defaultHeight
-                    var backgroundColor = defaultBackgroundColor
-                    var font = defaultFont
+                    // Optional Global Options
                     
-                    handler(leftSegment: leftSegment, centerSegment: centerSegment, rightSegment: rightSegment, height: height, backgroundColor: backgroundColor, font: font)
+                    var backgroundColor: NSColor? = nil
+                    var fontName: String? = nil
+                    var fontSize: CGFloat? = nil
+                    var height: CGFloat? = nil
+                    var edgeOffset: CGFloat? = nil
+                    var insetPercent: Double? = nil
+
+                    if let specifiedBackgroundColorString = configDict["backgroundColor"] {
+                        if let colorForCSS = NSColor.withCSSString(specifiedBackgroundColorString as! String) {
+                            backgroundColor = colorForCSS
+                        }
+                    }
+                    
+                    if let specifiedFontNameString = configDict["fontName"] as? String {
+                        fontName = specifiedFontNameString
+                    }
+                    
+                    if let specifiedFontSize = configDict["fontSize"] as? Int {
+                        fontSize = CGFloat(specifiedFontSize)
+                    }
+                    
+                    if let specifiedHeightInt = configDict["height"] as? Int {
+                        height = CGFloat(specifiedHeightInt)
+                    }
+                    
+                    if let specifiedEdgeOffset = configDict["edgeOffset"] as? Int {
+                        edgeOffset = CGFloat(specifiedEdgeOffset)
+                    }
+                    
+                    if let specifiedInsetPercent = configDict["insetPercent"] as? Double {
+                        insetPercent = specifiedInsetPercent
+                    }
+                    
+                    let barGlobalConfiguration = BarGlobalConfiguration.withPotentiallyNilOptions(backgroundColor, fontName: fontName, fontSize: fontSize, height: height, edgeOffset: edgeOffset, insetPercent: insetPercent)
+                    
+                    handler(leftSegment: leftSegment, centerSegment: centerSegment, rightSegment: rightSegment, barGlobalConfiguration: barGlobalConfiguration)
                 }
             }
             catch {
@@ -58,7 +88,7 @@ class ConfigurationFileLoader {
                 let centerSegment = BarSegment(position: .Center, items: emptyItems)
                 let rightSegment = BarSegment(position: .Right, items: emptyItems)
                 
-                handler(leftSegment: leftSegment, centerSegment: centerSegment, rightSegment: rightSegment, height: defaultHeight, backgroundColor: defaultBackgroundColor, font: defaultFont)
+                handler(leftSegment: leftSegment, centerSegment: centerSegment, rightSegment: rightSegment, barGlobalConfiguration: BarGlobalConfiguration.defaultConfiguration())
             }
         }
         else {
@@ -66,7 +96,7 @@ class ConfigurationFileLoader {
             let centerSegment = BarSegment(position: .Center, items: emptyItems)
             let rightSegment = BarSegment(position: .Right, items: emptyItems)
             
-            handler(leftSegment: leftSegment, centerSegment: centerSegment, rightSegment: rightSegment, height: defaultHeight, backgroundColor: defaultBackgroundColor, font: defaultFont)
+            handler(leftSegment: leftSegment, centerSegment: centerSegment, rightSegment: rightSegment, barGlobalConfiguration: BarGlobalConfiguration.defaultConfiguration())
         }
     }
 }

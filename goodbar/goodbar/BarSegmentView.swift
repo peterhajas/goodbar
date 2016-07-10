@@ -8,14 +8,14 @@
 
 import Cocoa
 
-class BarSegmentView : NSView, BarUpdatable, Fontable {
+class BarSegmentView : NSView, BarUpdatable, BarConfigurable, BarItemViewLayoutDelegate {
     let barSegment: BarSegment
     var barItemViews = [BarItemView]()
     
-    var font: NSFont? {
+    var barGlobalConfiguration = BarGlobalConfiguration.defaultConfiguration() {
         didSet {
             for view in barItemViews {
-                view.font = font
+                view.barGlobalConfiguration = barGlobalConfiguration
             }
         }
     }
@@ -33,24 +33,33 @@ class BarSegmentView : NSView, BarUpdatable, Fontable {
         
         for view in barItemViews {
             self.addSubview(view)
+            view.layoutDelegate = self
+        }
+    }
+    
+    func barItemViewCanTakeUpRemainingWidth(itemView: BarItemView) -> Bool {
+        switch barSegment.position {
+        case .Left:
+            return barItemViews.last == itemView
+        case .Center:
+            return barItemViews.count == 1
+        case .Right:
+            return barItemViews.first == itemView
         }
     }
     
     override func layout() {
         super.layout()
-        var runningX: CGFloat = 0
-        
-        var totalWidth: CGFloat = 0
+        var totalItemWidth: CGFloat = 0
         
         for view in barItemViews {
             let fittingSize = view.fittingSize
-            let viewFrame = CGRectMake(runningX, 0, fittingSize.width, self.bounds.size.height)
+            let viewFrame = CGRectMake(totalItemWidth, 0, fittingSize.width, self.bounds.size.height)
             view.frame = viewFrame
-            totalWidth += viewFrame.size.width
-            runningX += view.bounds.size.width
+            totalItemWidth += viewFrame.size.width
         }
         
-        let widthDifference = bounds.size.width - totalWidth
+        let widthDifference = bounds.size.width - totalItemWidth
         var xOffset: CGFloat = 0
         
         if barSegment.position == .Center {
@@ -72,6 +81,11 @@ class BarSegmentView : NSView, BarUpdatable, Fontable {
             for view in barItemViews {
                 var viewFrame = view.frame
                 viewFrame.origin.x += xOffset
+                
+                if barItemViewCanTakeUpRemainingWidth(view) {
+                    viewFrame.size.width += widthDifference
+                }
+                
                 view.frame = viewFrame
             }
         }
@@ -80,9 +94,11 @@ class BarSegmentView : NSView, BarUpdatable, Fontable {
     func updateBarContents() {
         for view in barItemViews {
             view.updateBarContents()
-        }	
-        
-        self.needsLayout = true
+        }
+    }
+    
+    func barItemViewChangedContents(barItemView: BarItemView) {
+        needsLayout = true
     }
     
     required init?(coder: NSCoder) {

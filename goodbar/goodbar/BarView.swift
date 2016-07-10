@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class BarView : NSView, BarUpdatable, Fontable {
+class BarView : NSView, BarUpdatable, BarConfigurable {
     var leftSegment: BarSegment
     var centerSegment: BarSegment
     var rightSegment: BarSegment
@@ -26,11 +26,14 @@ class BarView : NSView, BarUpdatable, Fontable {
         }
     }
     
-    var font: NSFont? = nil {
+    var barGlobalConfiguration = BarGlobalConfiguration.defaultConfiguration() {
         didSet {
-            leftSegmentView.font = font
-            centerSegmentView.font = font
-            rightSegmentView.font = font
+            backgroundColor = barGlobalConfiguration.backgroundColor
+            frame.size.height = barGlobalConfiguration.height
+            
+            leftSegmentView.barGlobalConfiguration = barGlobalConfiguration
+            centerSegmentView.barGlobalConfiguration = barGlobalConfiguration
+            rightSegmentView.barGlobalConfiguration = barGlobalConfiguration
         }
     }
     
@@ -46,7 +49,7 @@ class BarView : NSView, BarUpdatable, Fontable {
         toolTipFormatter.dateStyle = .NoStyle
         toolTipFormatter.timeStyle = .ShortStyle
         
-        super.init(frame: CGRectMake(0, 0, 480, BarGeometry.height))
+        super.init(frame: CGRectMake(0, 0, 480, 0))
         
         self.autoresizingMask = [.ViewWidthSizable, .ViewHeightSizable]
         

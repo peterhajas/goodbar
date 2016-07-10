@@ -8,16 +8,27 @@
 
 import Cocoa
 
-class Window : NSWindow {
+class Window : NSWindow, BarConfigurable {
+    var barGlobalConfiguration = BarGlobalConfiguration.defaultConfiguration() {
+        didSet {
+            updateSizeAndScreen()
+        }
+    }
+    
     private func updateSizeAndScreen() {
         let screenToUse = NSScreen.screens()![0]
         
-        let screenRect = screenToUse.visibleFrame
+        let screenRect = screenToUse.frame
         
-        // 4 is a fudge factor
-        let yPosition = screenRect.size.height - BarGeometry.height + 4
+        let height = barGlobalConfiguration.height
+        let edgeOffset = barGlobalConfiguration.edgeOffset
+        let insetPercent = barGlobalConfiguration.insetPercent
         
-        let windowRect = CGRectMake(0, yPosition, screenRect.width, BarGeometry.height)
+        let xPosition = CGFloat(insetPercent) * screenRect.width
+        let yPosition = screenRect.size.height - (height + edgeOffset)
+        let width = screenRect.width * CGFloat(1 - 2 * insetPercent)
+        
+        let windowRect = CGRectMake(xPosition, yPosition, width, height)
         
         self.minSize = windowRect.size
         self.maxSize = windowRect.size
