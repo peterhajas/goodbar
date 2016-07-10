@@ -28,12 +28,11 @@ class BarItemView : NSView, BarUpdatable, Fontable {
         super.init(frame: CGRectZero)
         self.translatesAutoresizingMaskIntoConstraints = false
         self.wantsLayer = true
-        self.layer?.backgroundColor = NSColor.clearColor().CGColor
         
         self.addSubview(label)
         label.editable = false
         label.selectable = false
-        label.backgroundColor = NSColor.clearColor()
+        label.drawsBackground = false
         label.bordered = false
         label.bezeled = false
         label.textColor = barItem.color
