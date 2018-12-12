@@ -16,7 +16,7 @@ class Window : NSWindow, BarConfigurable {
     }
     
     private func updateSizeAndScreen() {
-        let screenToUse = NSScreen.screens()![0]
+        guard let screenToUse = NSScreen.screens.first else { return }
         
         let screenRect = screenToUse.frame
         
@@ -28,7 +28,7 @@ class Window : NSWindow, BarConfigurable {
         let yPosition = screenRect.size.height - (height + edgeOffset)
         let width = screenRect.width * CGFloat(1 - 2 * insetPercent)
         
-        let windowRect = CGRectMake(xPosition, yPosition, width, height)
+        let windowRect = CGRect(x: xPosition, y: yPosition, width: width, height: height)
         
         self.minSize = windowRect.size
         self.maxSize = windowRect.size
@@ -36,28 +36,22 @@ class Window : NSWindow, BarConfigurable {
         self.setFrame(windowRect, display: true)
     }
     
-    override func constrainFrameRect(frameRect: NSRect, toScreen screen: NSScreen?) -> NSRect {
+    override func constrainFrameRect(_ frameRect: NSRect, to screen: NSScreen?) -> NSRect {
         return frameRect
     }
     
     private func commonInit() {
-        let cgLevelKey = CGWindowLevelKey.BackstopMenuLevelKey
+        let cgLevelKey = CGWindowLevelKey.backstopMenu
         let cgLevel = CGWindowLevelForKey(cgLevelKey)
-        let level = Int(cgLevel)
         
-        self.level = level
-        self.collectionBehavior = [.Default, .Transient]
+        self.level = NSWindow.Level(rawValue: Int(cgLevel))
+        collectionBehavior = [.transient]
         
         updateSizeAndScreen()
     }
     
-    override init(contentRect: NSRect, styleMask aStyle: Int, backing bufferingType: NSBackingStoreType, defer flag: Bool) {
-        super.init(contentRect: contentRect, styleMask: aStyle, backing: bufferingType, defer: flag)
-        commonInit()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
+    override init(contentRect: NSRect, styleMask style: NSWindow.StyleMask, backing backingStoreType: NSWindow.BackingStoreType, defer flag: Bool) {
+        super.init(contentRect: contentRect, styleMask: style, backing: backingStoreType, defer: flag)
         commonInit()
     }
 }

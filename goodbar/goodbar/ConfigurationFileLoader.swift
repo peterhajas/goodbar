@@ -9,15 +9,15 @@
 import Cocoa
 
 class ConfigurationFileLoader {
-    func loadConfigurationFile(handler: (leftSegment: BarSegment, centerSegment: BarSegment, rightSegment: BarSegment, barGlobalConfiguration: BarGlobalConfiguration) -> Void) {
+    func loadConfigurationFile(handler: (_ leftSegment: BarSegment, _ centerSegment: BarSegment, _ rightSegment: BarSegment, _ barGlobalConfiguration: BarGlobalConfiguration) -> Void) {
         let emptyItems = [BarItem]()
         
-        let configFilePath = ("~/.goodbar" as NSString).stringByExpandingTildeInPath
-        if NSFileManager.defaultManager().fileExistsAtPath(configFilePath) {
+        let configFilePath = ("~/.goodbar" as NSString).expandingTildeInPath
+        if FileManager.default.fileExists(atPath: configFilePath) {
             let data = NSData.init(contentsOfFile: configFilePath)!
             
             do {
-                let config = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+                let config = try JSONSerialization.jsonObject(with: data as Data, options: [])
                 
                 if let configDict = config as? [String : AnyObject] {
                     let leftSegment: BarSegment
@@ -78,9 +78,9 @@ class ConfigurationFileLoader {
                         insetPercent = specifiedInsetPercent
                     }
                     
-                    let barGlobalConfiguration = BarGlobalConfiguration.withPotentiallyNilOptions(backgroundColor, fontName: fontName, fontSize: fontSize, height: height, edgeOffset: edgeOffset, insetPercent: insetPercent)
+                    let barGlobalConfiguration = BarGlobalConfiguration.withPotentiallyNilOptions(backgroundColor: backgroundColor, fontName: fontName, fontSize: fontSize, height: height, edgeOffset: edgeOffset, insetPercent: insetPercent)
                     
-                    handler(leftSegment: leftSegment, centerSegment: centerSegment, rightSegment: rightSegment, barGlobalConfiguration: barGlobalConfiguration)
+                    handler(leftSegment, centerSegment, rightSegment, barGlobalConfiguration)
                 }
             }
             catch {
@@ -88,7 +88,7 @@ class ConfigurationFileLoader {
                 let centerSegment = BarSegment(position: .Center, items: emptyItems)
                 let rightSegment = BarSegment(position: .Right, items: emptyItems)
                 
-                handler(leftSegment: leftSegment, centerSegment: centerSegment, rightSegment: rightSegment, barGlobalConfiguration: BarGlobalConfiguration.defaultConfiguration())
+                handler(leftSegment, centerSegment, rightSegment, BarGlobalConfiguration.defaultConfiguration())
             }
         }
         else {
@@ -96,7 +96,7 @@ class ConfigurationFileLoader {
             let centerSegment = BarSegment(position: .Center, items: emptyItems)
             let rightSegment = BarSegment(position: .Right, items: emptyItems)
             
-            handler(leftSegment: leftSegment, centerSegment: centerSegment, rightSegment: rightSegment, barGlobalConfiguration: BarGlobalConfiguration.defaultConfiguration())
+            handler(leftSegment, centerSegment, rightSegment, BarGlobalConfiguration.defaultConfiguration())
         }
     }
 }

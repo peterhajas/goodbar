@@ -28,7 +28,7 @@ class BarSegmentView : NSView, BarUpdatable, BarConfigurable, BarItemViewLayoutD
             barItemViews.append(barItemView)
         }
         
-        super.init(frame: CGRectZero)
+        super.init(frame: .zero)
         self.translatesAutoresizingMaskIntoConstraints = false
         
         for view in barItemViews {
@@ -54,7 +54,7 @@ class BarSegmentView : NSView, BarUpdatable, BarConfigurable, BarItemViewLayoutD
         
         for view in barItemViews {
             let fittingSize = view.fittingSize
-            let viewFrame = CGRectMake(totalItemWidth, 0, fittingSize.width, self.bounds.size.height)
+            let viewFrame = CGRect(x: totalItemWidth, y: 0, width: fittingSize.width, height: self.bounds.size.height)
             view.frame = viewFrame
             totalItemWidth += viewFrame.size.width
         }
@@ -82,7 +82,7 @@ class BarSegmentView : NSView, BarUpdatable, BarConfigurable, BarItemViewLayoutD
                 var viewFrame = view.frame
                 viewFrame.origin.x += xOffset
                 
-                if barItemViewCanTakeUpRemainingWidth(view) {
+                if barItemViewCanTakeUpRemainingWidth(itemView: view) {
                     viewFrame.size.width += widthDifference
                 }
                 

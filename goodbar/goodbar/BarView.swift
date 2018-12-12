@@ -17,11 +17,11 @@ class BarView : NSView, BarUpdatable, BarConfigurable {
     var centerSegmentView: BarSegmentView
     var rightSegmentView: BarSegmentView
     
-    let toolTipFormatter = NSDateFormatter()
+    let toolTipFormatter = DateFormatter()
     
-    var lastUpdatedDate = NSDate() {
+    var lastUpdatedDate = Date() {
         didSet {
-            let lastUpdatedDateString = toolTipFormatter.stringFromDate(lastUpdatedDate)
+            let lastUpdatedDateString = toolTipFormatter.string(from: lastUpdatedDate)
             toolTip = "Last updated at \(lastUpdatedDateString)"
         }
     }
@@ -46,12 +46,12 @@ class BarView : NSView, BarUpdatable, BarConfigurable {
         self.centerSegmentView = BarSegmentView(barSegment: centerSegment)
         self.rightSegmentView = BarSegmentView(barSegment: rightSegment)
         
-        toolTipFormatter.dateStyle = .NoStyle
-        toolTipFormatter.timeStyle = .ShortStyle
+        toolTipFormatter.dateStyle = .none
+        toolTipFormatter.timeStyle = .short
         
-        super.init(frame: CGRectMake(0, 0, 480, 0))
+        super.init(frame: CGRect(x: 0, y: 0, width: 480, height: 0))
         
-        self.autoresizingMask = [.ViewWidthSizable, .ViewHeightSizable]
+        self.autoresizingMask = [.width, .height]
         
         self.wantsLayer = true
         
@@ -62,9 +62,9 @@ class BarView : NSView, BarUpdatable, BarConfigurable {
         }
     }
     
-    var backgroundColor: NSColor = NSColor.clearColor() {
+    var backgroundColor: NSColor = .clear {
         didSet {
-            layer!.backgroundColor = backgroundColor.CGColor
+            layer!.backgroundColor = backgroundColor.cgColor
         }
     }
     
@@ -86,7 +86,7 @@ class BarView : NSView, BarUpdatable, BarConfigurable {
         centerSegmentView.updateBarContents()
         rightSegmentView.updateBarContents()
         
-        lastUpdatedDate = NSDate()
+        lastUpdatedDate = Date()
     }
     
     required init?(coder: NSCoder) {

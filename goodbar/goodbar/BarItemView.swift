@@ -15,13 +15,13 @@ protocol BarItemViewLayoutDelegate {
 class BarItemView : NSView, BarUpdatable, BarConfigurable {
     let barItem: BarItem
     let label = NSTextField()
-    var attributes: [String : AnyObject] = [String : AnyObject]()
+    var attributes: [NSAttributedString.Key : AnyObject] = [NSAttributedString.Key : AnyObject]()
     var lastOutput = ""
     var lastFittingSize = CGSize.zero
     
     var layoutDelegate: BarItemViewLayoutDelegate? = nil
     
-    var textAlignment: NSTextAlignment = .Center {
+    var textAlignment: NSTextAlignment = .center {
         didSet {
             self.updateBarContents()
         }
@@ -29,26 +29,26 @@ class BarItemView : NSView, BarUpdatable, BarConfigurable {
     
     var barGlobalConfiguration = BarGlobalConfiguration.defaultConfiguration() {
         didSet {
-            attributes = [NSForegroundColorAttributeName : barItem.color,
-                          NSFontAttributeName : barGlobalConfiguration.font]
+            attributes = [NSAttributedString.Key.foregroundColor : barItem.color,
+                          NSAttributedString.Key.font : barGlobalConfiguration.font]
             updateBarContents()
         }
     }
     
     init(barItem: BarItem) {
         self.barItem = barItem
-        super.init(frame: CGRectZero)
+        super.init(frame: .zero)
         self.translatesAutoresizingMaskIntoConstraints = false
         self.wantsLayer = true
         
         self.addSubview(label)
-        label.editable = false
-        label.selectable = false
+        label.isEditable = false
+        label.isSelectable = false
         label.drawsBackground = false
-        label.bordered = false
-        label.bezeled = false
+        label.isBordered = false
+        label.isBezeled = false
         label.textColor = barItem.color
-        label.lineBreakMode = .ByTruncatingTail
+        label.lineBreakMode = .byTruncatingTail
         label.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -63,7 +63,7 @@ class BarItemView : NSView, BarUpdatable, BarConfigurable {
     }
     
     func updateBarContents() {
-        barItem.getCurrentOutput({ (output) in
+        barItem.getCurrentOutput(handler: { (output) in
             if output != self.lastOutput {
                 self.lastOutput = output
                 
@@ -72,7 +72,7 @@ class BarItemView : NSView, BarUpdatable, BarConfigurable {
                 
                 if self.fittingSize != self.lastFittingSize {
                     self.lastFittingSize = self.fittingSize
-                    self.layoutDelegate?.barItemViewChangedContents(self)
+                    self.layoutDelegate?.barItemViewChangedContents(barItemView: self)
                 }
             }
         })

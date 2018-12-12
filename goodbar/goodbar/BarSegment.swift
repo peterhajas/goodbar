@@ -16,11 +16,11 @@ enum BarSegmentPosition {
     var textAlignment: NSTextAlignment {
         switch self {
         case .Left:
-            return .Left
+            return .left
         case .Center:
-            return .Center
+            return .center
         case .Right:
-            return .Right
+            return .right
         }
     }
 }

@@ -19,7 +19,7 @@ struct BarItem {
     
     init(dictionaryRepresentation: NSDictionary) {
         let script = dictionaryRepresentation["script"] as! String
-        var color = NSColor.orangeColor() // sane defaults
+        var color: NSColor = .orange // sane defaults
         
         if let colorStringFromFile = dictionaryRepresentation["color"] as? String {
             if let colorFromFile = NSColor.withCSSString(colorStringFromFile) {
@@ -30,12 +30,12 @@ struct BarItem {
         self.init(script: script, color: color)
     }
     
-    func getCurrentOutput(handler: (String) -> Void) {
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) {
-            let task = NSTask()
-            let pipe = NSPipe()
+    func getCurrentOutput(handler: @escaping (String) -> Void) {
+        DispatchQueue.global(qos: .background).async {
+            let task = Process()
+            let pipe = Pipe()
             
-            let command = ((self.script as NSString).stringByExpandingTildeInPath) as String
+            let command = ((self.script as NSString).expandingTildeInPath) as String
             
             task.launchPath = "/bin/bash"
             task.arguments = ["-c", command]
@@ -51,16 +51,16 @@ struct BarItem {
             
             let output: String
             
-            if let stringFromData = NSString(data: data, encoding: NSUTF8StringEncoding) {
+            if let stringFromData = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
                 output = stringFromData as String
             }
             else {
                 output = ""
             }
             
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async {
                 handler(output)
-            })
+            }
         }
     }
 }
